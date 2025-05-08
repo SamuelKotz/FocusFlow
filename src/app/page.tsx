@@ -13,9 +13,9 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
 
 const initialLists: ListData[] = [
-  { id: 'list-1', title: 'To Do', cards: [{ id: 'card-1-1', content: 'Example Task 1', order:0 }, { id: 'card-1-2', content: 'Example Task 2', order:1 }] },
-  { id: 'list-2', title: 'In Progress', cards: [] },
-  { id: 'list-3', title: 'Done', cards: [] },
+  { id: 'list-1', title: 'A Fazer', cards: [{ id: 'card-1-1', content: 'Example Task 1', order:0 }, { id: 'card-1-2', content: 'Example Task 2', order:1 }] },
+  { id: 'list-2', title: 'Em Progresso', cards: [] },
+  { id: 'list-3', title: 'Feito', cards: [] },
 ];
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
 
   const addList = () => {
     if (newListTitle.trim() === '') {
-      toast({ title: "Error", description: "List title cannot be empty.", variant: "destructive" });
+      toast({ title: "Error", description: "Título da lista não pode ser vazio.", variant: "destructive" });
       return;
     }
     const newList: ListData = {
@@ -41,20 +41,20 @@ export default function Home() {
     };
     setLists([...lists, newList]);
     setNewListTitle('');
-    toast({ title: "List Added", description: `List "${newList.title}" has been created.`});
+    toast({ title: "Lista adicionada!", description: `Lista "${newList.title}" foi criada.`});
   };
   
   const deleteList = (listId: string) => {
     const listToDelete = lists.find(l => l.id === listId);
     setLists(lists.filter(list => list.id !== listId));
     if (listToDelete) {
-        toast({ title: "List Deleted", description: `List "${listToDelete.title}" has been removed.`, variant: "destructive" });
+        toast({ title: "Lista deletada!", description: `Lista "${listToDelete.title}" foi removida.`, variant: "destructive" });
     }
   };
 
   const updateListTitle = (listId: string, newTitle: string) => {
     setLists(lists.map(list => list.id === listId ? { ...list, title: newTitle } : list));
-    toast({ title: "List Updated", description: `List title changed to "${newTitle}".`});
+    toast({ title: "Lista atualizada!", description: `Título da lista atualizado para: "${newTitle}".`});
   };
 
   const addCardToList = (listId: string, cardContent: string) => {
@@ -68,7 +68,7 @@ export default function Home() {
         list.id === listId ? { ...list, cards: [...list.cards, newCard] } : list
       )
     );
-    toast({ title: "Card Added", description: "New card created."});
+    toast({ title: "Card adicionado", description: "Novo card adicionado."});
   };
 
   const deleteCardFromList = (listId: string, cardId: string) => {
@@ -79,7 +79,7 @@ export default function Home() {
           : list
       )
     );
-    toast({ title: "Card Deleted", description: "Card has been removed.", variant: "destructive" });
+    toast({ title: "Card deletado", description: "O card foi removido.", variant: "destructive" });
   };
 
   const updateCardContentInList = (listId: string, cardId: string, newContent: string) => {
@@ -90,7 +90,7 @@ export default function Home() {
           : list
       )
     );
-    toast({ title: "Card Updated", description: "Card content has been changed."});
+    toast({ title: "Card atualizado", description: "Conteúdo do card foi atualizado."});
   };
 
   const moveCard = useCallback(
@@ -156,11 +156,11 @@ export default function Home() {
       <div className="min-h-screen bg-background p-4 md:p-8">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-primary flex items-center">
-            <LayoutGrid size={36} className="mr-3 text-accent" /> Organize Now
+            <LayoutGrid size={36} className="mr-3 text-accent" /> FocusFlow
           </h1>
-          <p className="text-muted-foreground">Your personal Trello-style planner.</p>
+          <p className="text-muted-foreground">Seu planner pessoal para o dia a dia.</p>
         </header>
-        <div className="text-center p-10">Loading your board...</div>
+        <div className="text-center p-10">Carregando...</div>
       </div>
     );
   }
@@ -171,24 +171,24 @@ export default function Home() {
       <div className="min-h-screen bg-background p-4 md:p-8">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-primary flex items-center">
-            <LayoutGrid size={36} className="mr-3 text-accent" /> Organize Now
+            <LayoutGrid size={36} className="mr-3 text-accent" /> FocusFlow
           </h1>
-          <p className="text-muted-foreground">Your personal Trello-style planner.</p>
+          <p className="text-muted-foreground">Seu planner pessoal para o dia a dia.</p>
         </header>
 
         <div className="mb-8 p-4 bg-card shadow-md rounded-lg">
-          <h2 className="text-xl font-semibold mb-3 text-foreground">Create New List</h2>
+          <h2 className="text-xl font-semibold mb-3 text-foreground">Crie uma nova lista</h2>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
               type="text"
               value={newListTitle}
               onChange={(e) => setNewListTitle(e.target.value)}
-              placeholder="Enter list title..."
+              placeholder="Insira o título da nova lista..."
               className="flex-grow"
               aria-label="New list title"
             />
             <Button onClick={addList} className="w-full sm:w-auto" aria-label="Add new list">
-              <PlusCircle size={18} className="mr-2" /> Add List
+              <PlusCircle size={18} className="mr-2" /> Add Lista
             </Button>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default function Home() {
           ))}
            {lists.length === 0 && (
             <div className="p-10 text-center text-muted-foreground w-full">
-                No lists yet. Add one to get started!
+                Sem listas ainda. Adicione uma para começar!
             </div>
           )}
         </div>
